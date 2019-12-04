@@ -37,7 +37,7 @@ if ask_train == 'y':
     from sklearn.neural_network import MLPRegressor
 
     # Pembuatan model
-    model = MLPRegressor(random_state = 1, activation = 'relu', hidden_layer_sizes=(15), solver='adam', alpha=0.001, max_iter = 5000)
+    model = MLPRegressor(random_state = 1, activation = 'relu', hidden_layer_sizes=(14,20), solver='adam', alpha=0.001, max_iter = 5000)
     print("Parameter Model...")
     print(model.get_params)
     print()
