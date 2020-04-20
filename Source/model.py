@@ -1,48 +1,52 @@
-import pandas as pd
+# Import needed libraries
 import pickle
-
-# Memasukkan dataset ke dalam program.
-data = pd.read_excel('dataAll.xlsx')
-
-# Memisahkan data input dan data target.
-# Data Input
-X = data[['Heater','AC','To','Radiation']]
-# Data Target
-target = data[['Td','RH']]
-
-# Memisahkan data pelatihan (training), data validasi (validation), dan data pengujian (testing).
+import numpy as np
+import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_squared_error, mean_absolute_error, explained_variance_score, r2_score
 
-# Memisahkan 20% menjadi data tes
-X_temp, X_test, y_temp, y_test = train_test_split(X, target, test_size=0.05, shuffle=True, random_state=15)
+## Import dataset
+data = pd.read_excel('dataAll.xlsx')
 
-# Memisahkan 20% menjadi data validation
-X_train, X_val, y_train, y_val = train_test_split(X_temp, y_temp, test_size=(15/95), shuffle=True, random_state=2019)
+y = data.loc[:, ['Td','RH'] ]
+X = data.loc[:, ['HT','AC','To','RD'] ]
+# X for NARX: X = X and Y
+X = np.append(X, y, axis=1)
 
-# Menghapus data temporary
+# Split dataset
+# Data test
+X_temp, X_test, y_temp, y_test = train_test_split(X, y, test_size=0.05, shuffle=False, random_state=15)
+# delete temporary data
 del X_temp, y_temp
 
 # Load from file
 print("Memuat model JST...")
-pkl_filename = "trained_model.pkl"
+pkl_filename = "model.pkl"
 with open(pkl_filename, 'rb') as file:
-    saved_model = pickle.load(file)
+    model = pickle.load(file)
+    print()
     print("Model JST berhasil dimuat!")
 
-# Memprediksi
-y_pred = saved_model.predict(X_test)
-y_target = y_test
+# Prediction
+y_pred = model.predict(X_test, y_test.Td, step=1)
 
-# Menghitung kinerja
-EVar = round(explained_variance_score(y_target, y_pred)*100,2)
-R    = round(r2_score(y_target, y_pred)**0.5*100,2)
-RMSE = round(mean_squared_error(y_target, y_pred)**0.5,2)
-MAE  = round(mean_absolute_error(y_target, y_pred),2)
+# score function
+def kinerja(y_target, y_pred, method="evar"):
+    mask = np.isnan(y_target) | np.isnan(y_pred)
+    if method == "evar":
+        return explained_variance_score(y_target[~mask], y_pred[~mask])
+    elif method == "r2":
+        return r2_score(y_target[~mask], y_pred[~mask])
+    elif method == "mse":
+        return mean_squared_error(y_target[~mask], y_pred[~mask])
+    elif method == "mae":
+        return mean_absolute_error(y_target[~mask], y_pred[~mask])
 
-# print errors as report
-print('Score = {}% R = {}% RMSE = {} MAE = {}'.format(EVar, R, RMSE, MAE))
-print()
-print('Td : Score = {}% RMSE = {} MAE = {} Mean = {} Std = {}'.format(EVar_Td, RMSE_Td, MAE_Td, Mean_Td, Std_Td))
-print('RH : Score = {}% RMSE = {} MAE = {} Mean = {} Std = {}'.format(EVar_RH, RMSE_RH, MAE_RH, Mean_RH, Std_RH))
+# Performance Evaluation
+EVar = round(kinerja(y_test.Td, y_pred, method='evar')*100, 2)
+R2   = round(kinerja(y_test.Td, y_pred, method='r2')*100, 2)
+RMSE = round(kinerja(y_test.Td, y_pred, method='mse')**0.5, 2)
+MAE  = round(kinerja(y_test.Td, y_pred, method='mae'), 2)
+print("Performance evaluation based on Test Data")
+print("EVar = {}% | R2 = {}% | RMSE = {} | MAE = {}".format(EVar, R2, RMSE, MAE))
 print()
