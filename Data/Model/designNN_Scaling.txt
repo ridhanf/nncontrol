@@ -1,0 +1,1 @@
+[91, 'relu', 'adam', 5000, 0.0001, 'constant', True]
