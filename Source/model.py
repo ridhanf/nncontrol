@@ -2,7 +2,7 @@ import pandas as pd
 import pickle
 
 # Memasukkan dataset ke dalam program.
-data = pd.read_excel('../Data/dataAll.xlsx')
+data = pd.read_excel('dataAll.xlsx')
 
 # Memisahkan data input dan data target.
 # Data Input
