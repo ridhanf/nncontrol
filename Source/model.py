@@ -6,12 +6,10 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_squared_error, mean_absolute_error, explained_variance_score, r2_score
 
 ## Import dataset
-data = pd.read_excel('dataAll.xlsx')
+data = pd.read_excel('newData.xlsx')
 
 y = data.loc[:, ['Td','RH'] ]
 X = data.loc[:, ['HT','AC','To','RD'] ]
-# X for NARX: X = X and Y
-X = np.append(X, y, axis=1)
 
 # Split dataset
 # Data test

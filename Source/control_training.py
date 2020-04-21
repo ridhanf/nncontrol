@@ -7,12 +7,10 @@ from sklearn.neural_network import MLPRegressor
 from sklearn.metrics import mean_squared_error, mean_absolute_error, explained_variance_score, r2_score
 
 # Import dataset
-data = pd.read_excel('dataAll.xlsx')
+data = pd.read_excel('newData.xlsx')
 
 y = data.loc[:, ['HT','AC'] ]
 X = data.loc[:, ['To','RD','Td','RH'] ]
-# X for NARX: X = X and Y
-X = np.append(X, y, axis=1)
 
 # Split dataset
 # Data test
@@ -47,7 +45,7 @@ if ask_train == 'y':
     # Control design (MLP-NARX)
     mdl_MLP = MLPRegressor(random_state = 1, hidden_layer_sizes=(91), max_iter = 5000)
 
-    p_value, q_value, d_value = 1, [3]*6, [0]*6
+    p_value, q_value, d_value = 1, [3]*4, [0]*4
     mdl_NARX = NARX(mdl_MLP, auto_order=p_value, exog_order=q_value, exog_delay=d_value)
 
     # Controller Training
@@ -62,7 +60,7 @@ if ask_train == 'y':
     R2   = round(kinerja(y_val.AC, y_pred, method='r2')*100, 2)
     RMSE = round(kinerja(y_val.AC, y_pred, method='mse')**0.5, 2)
     MAE  = round(kinerja(y_val.AC, y_pred, method='mae'), 2)
-    print("Performance evaluation based on Test Data")
+    print("Performance evaluation based on Validation Data")
     print("EVar = {}% | R2 = {}% | RMSE = {} | MAE = {}".format(EVar, R2, RMSE, MAE))
     print()
 
