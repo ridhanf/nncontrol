@@ -6,7 +6,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_squared_error, mean_absolute_error, explained_variance_score, r2_score
 
 ## Import dataset
-data = pd.read_excel('newData.xlsx')
+data = pd.read_excel('controllerData.xlsx')
 
 y = data.loc[:, ['HT','AC'] ]
 X = data.loc[:, ['To','RD','Td','RH'] ]

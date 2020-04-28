@@ -7,7 +7,7 @@ from sklearn.neural_network import MLPRegressor
 from sklearn.metrics import mean_squared_error, mean_absolute_error, explained_variance_score, r2_score
 
 # Import dataset
-data = pd.read_excel('newData.xlsx')
+data = pd.read_excel('modelData.xlsx')
 
 y = data.loc[:, ['Td','RH'] ]
 X = data.loc[:, ['HT','AC','To','RD'] ]
