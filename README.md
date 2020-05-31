@@ -2,10 +2,8 @@
 <br />
 
 ### DATA
-Source     : [data.xlsx](https://github.com/ridhanf/nncontrol/blob/master/Data/data.xlsx)
-<br />
-
-
+- Source     : [data.xlsx](https://github.com/ridhanf/nncontrol/blob/master/Data/data.xlsx)
+<br    />
 
 ### SYSTEM IDENTIFICATION
 #### Method     : NARX (Nonlinear Autoregressive with Exogenous Input)
@@ -13,7 +11,6 @@ Source     : [data.xlsx](https://github.com/ridhanf/nncontrol/blob/master/Data/d
 - Notebook                   : [model_NARX.ipynb](https://github.com/ridhanf/nncontrol/blob/master/Notebooks/model_NARX.ipynb)
 - Source  &nbsp;&nbsp;&nbsp; : [model_training.py](https://github.com/ridhanf/nncontrol/blob/master/Source/model_training.py)
 <br />
-
 
 ### CONTROL DESIGN
 #### Method     : Neural Predictive Control (NN-MPC)
