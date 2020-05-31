@@ -1,13 +1,19 @@
 # DESIGN AND BUILT ARTIFICITAL NEURAL NETWORK FOR THERMAL ENVIRONMENT CONTROL OF CLIMATE CHAMBER
 
+
+
 ## DATA
 Source     : [data.xlsx](https://github.com/ridhanf/nncontrol/blob/master/Data/data.xlsx)
 
+
+
 ## SYSTEM IDENTIFICATION
 ### Method     : NARX (Nonlinear Autoregressive with Exogenous Input)
-Library    : [fireTS](https://pypi.org/project/fireTS/). The documentation can be found [here](https://firets.readthedocs.io/en/latest/).
-Notebook   : [model_NARX.ipynb](https://github.com/ridhanf/nncontrol/blob/master/Notebooks/model_NARX.ipynb)
-Source     : [model_training.py](https://github.com/ridhanf/nncontrol/blob/master/Source/model_training.py)
+- Library    : [fireTS](https://pypi.org/project/fireTS/). The documentation can be found [here](https://firets.readthedocs.io/en/latest/)
+- Notebook   : [model_NARX.ipynb](https://github.com/ridhanf/nncontrol/blob/master/Notebooks/model_NARX.ipynb)
+- Source     : [model_training.py](https://github.com/ridhanf/nncontrol/blob/master/Source/model_training.py)
+
+
 
 ## CONTROL DESIGN
 ### Method     : Neural Predictive Control (NN-MPC)
