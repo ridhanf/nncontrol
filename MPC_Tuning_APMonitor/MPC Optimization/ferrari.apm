@@ -1,0 +1,15 @@
+Constants
+  m = 500 ! Mass (kg)
+
+Parameters
+  b = 50  ! Resistive coefficient (N-s/m)  
+  K = 0.8 ! Gain (m/s-%pedal)
+  p = 0 >= 0 <= 100  ! Gas pedal position (%)
+  
+Variables
+  v = 0
+  tau = m/b
+  
+Equations
+  m * $v = -v * b + K * b * p
+  tau * b = m
